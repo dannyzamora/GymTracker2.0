@@ -42,6 +42,12 @@ const Signup = ({ classes, history }) => {
         }
     }, [UI.errors])
 
+    useEffect(() => {
+      
+        dispatch( {type:'CLEAR_ERRORS'} )
+        
+    }, [])
+
     const handleSubmit = (event) => {
         event.preventDefault()
         const newUserData = {

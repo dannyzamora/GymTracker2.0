@@ -5,6 +5,7 @@ import {
     SET_ERRORS,
     POST_USER_WORKOUT,
     CLEAR_ERRORS,
+    SUBMIT_SET,
     LOADING_UI,
     SET_USER_WORKOUT,
     STOP_LOADING_UI,
@@ -62,24 +63,25 @@ export const postuserWorkout = (newuserWorkout) => (dispatch) => {
         });
 };
 
-// Submit a comment
-// export const submitComment = (userWorkoutId, commentData) => (dispatch) => {
-//     axios
-//         .post(`/userWorkout/${userWorkoutId}/comment`, commentData)
-//         .then((res) => {
-//             dispatch({
-//                 type: SUBMIT_COMMENT,
-//                 payload: res.data
-//             });
-//             dispatch(clearErrors());
-//         })
-//         .catch((err) => {
-//             dispatch({
-//                 type: SET_ERRORS,
-//                 payload: err.response.data
-//             });
-//         });
-// };
+//Submit a set
+export const submitSet = (workoutId, setData) => (dispatch) => {
+    axios
+        .post(`/userWorkout/${workoutId}/set`, setData)
+        .then((res) => {
+            dispatch({
+                type: SUBMIT_SET,
+                payload: res.data
+            });
+            console.log('asdfasdf ', res.data)
+            dispatch(clearErrors());
+        })
+        .catch((err) => {
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            });
+        });
+};
 export const deleteuserWorkout = (userWorkoutId) => (dispatch) => {
     axios
         .delete(`/userWorkout/${userWorkoutId}`)

@@ -3,7 +3,8 @@ import {
     LOADING_DATA,
     DELETE_USER_WORKOUT,
     POST_USER_WORKOUT,
-    SET_USER_WORKOUT
+    SET_USER_WORKOUT,
+    SUBMIT_SET
 } from '../types';
 
 const initialState = {
@@ -31,14 +32,28 @@ export default function (state = initialState, action) {
                 userWorkout: action.payload
             };
 
-        case DELETE_USER_WORKOUT:
+        // case DELETE_USER_WORKOUT:
+        //     let index = state.userWorkouts.findIndex(
+        //         (userWorkout) => userWorkout.workoutId === action.payload.workoutId
+        //     );
+        //     state.userWorkouts.splice(index, 1);
+        //     return {
+        //         ...state
+        //     };
+        case SUBMIT_SET:
             let index = state.userWorkouts.findIndex(
-                (userWorkout) => userWorkout.userWorkoutId === action.payload
+                (userWorkout) => userWorkout.workoutId === action.payload.workoutId
             );
-            state.userWorkouts.splice(index, 1);
+
+            state.userWorkouts[index].setCount++;
+
             return {
-                ...state
-            };
+                ...state,
+                userWorkout: {
+                    ...state.userWorkout,
+                    sets: [action.payload, ...state.userWorkout.sets]
+                }
+            }
         case POST_USER_WORKOUT:
             return {
                 ...state,
