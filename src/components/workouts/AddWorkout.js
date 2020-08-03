@@ -44,7 +44,7 @@ const muscles = [
     'Arms'
 ]
 
-const AddWorkout = ({ classes }) => {
+const AddWorkout = ({ classes, createdAt }) => {
     const [open, setOpen] = useState(false);
     const [name, setName] = useState("")
     const [muscle, setMuscle] = useState("Back")
@@ -84,7 +84,8 @@ const AddWorkout = ({ classes }) => {
 
         const newWorkout = {
             name,
-            muscle
+            muscle,
+            createdAt
         }
         dispatch(postuserWorkout(newWorkout))
 

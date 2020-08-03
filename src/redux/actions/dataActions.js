@@ -13,10 +13,11 @@ import {
 import axios from 'axios';
 
 // Get all userWorkouts
-export const getUserWorkouts = () => (dispatch) => {
+export const getUserWorkouts = (startDay, endDay) => (dispatch) => {
+    console.log(startDay, endDay)
     dispatch({ type: LOADING_DATA });
     axios
-        .get('/userWorkouts')
+        .get(`/userWorkouts?startDate=${startDay}&endDate=${endDay}`)
         .then((res) => {
             dispatch({
                 type: SET_USER_WORKOUTS,
@@ -72,7 +73,6 @@ export const submitSet = (workoutId, setData) => (dispatch) => {
                 type: SUBMIT_SET,
                 payload: res.data
             });
-            console.log('asdfasdf ', res.data)
             dispatch(clearErrors());
         })
         .catch((err) => {
@@ -82,11 +82,14 @@ export const submitSet = (workoutId, setData) => (dispatch) => {
             });
         });
 };
-export const deleteuserWorkout = (userWorkoutId) => (dispatch) => {
+export const deleteuserWorkout = (workoutId) => (dispatch) => {
+    console.log(workoutId)
+
     axios
-        .delete(`/userWorkout/${userWorkoutId}`)
+        .delete(`/userWorkout/${workoutId}`)
         .then(() => {
-            dispatch({ type: DELETE_USER_WORKOUT, payload: userWorkoutId });
+            dispatch({ type: DELETE_USER_WORKOUT, payload: workoutId });
+
         })
         .catch((err) => console.log(err));
 };

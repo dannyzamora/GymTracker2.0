@@ -8,10 +8,10 @@ const Sets = ({ sets }) => {
                 const { reps, weight } = set;
                 return (
                     <>
-                        <Grid item sm={6}>
+                        <Grid item xs={6}>
                             {reps}
                         </Grid>
-                        <Grid item sm={6}>
+                        <Grid item xs={6}>
                             {weight} lbs
                         </Grid>
                     </>

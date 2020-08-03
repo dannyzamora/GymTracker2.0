@@ -4,19 +4,27 @@ import { Link } from "react-router-dom"
 
 import MyButton from '../util/MyButton';
 
+import { logoutUser } from '../redux/actions/userActions';
 
 //MUI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 // Icons
-import HomeIcon from '@material-ui/icons/Home';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 
 
 const Navbar = () => {
+    const dispatch = useDispatch();
+
     const authenticated = useSelector(state => state.user.authenticated, shallowEqual)
+
+    const handleLogout = () => {
+        dispatch(logoutUser())
+    }
+
     return (
         <AppBar>
             <Toolbar className="nav-container">
@@ -24,8 +32,8 @@ const Navbar = () => {
                     <Fragment>
 
                         <Link to="/">
-                            <MyButton tip="Home">
-                                <HomeIcon />
+                            <MyButton onClick={handleLogout} tip="Logout">
+                                <ExitToAppIcon color='secondary' />
                             </MyButton>
                         </Link>
 
@@ -35,9 +43,9 @@ const Navbar = () => {
                             <Button color="inherit" component={Link} to="/login">
                                 Login
               </Button>
-                            <Button color="inherit" component={Link} to="/">
+                            {/* <Button color="inherit" component={Link} to="/">
                                 Home
-              </Button>
+              </Button> */}
                             <Button color="inherit" component={Link} to="/signup">
                                 Signup
               </Button>

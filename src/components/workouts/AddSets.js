@@ -2,15 +2,11 @@ import React, { useState, useEffect } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import MyButton from '../../util/MyButton';
-
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { submitSet } from '../../redux/actions/dataActions'
 
 const styles = (theme) => ({
@@ -43,10 +39,6 @@ const AddSets = ({ classes, workoutId }) => {
     const [error, setError] = useState({})
 
     const dispatch = useDispatch();
-
-    const workout = useSelector(state => state.data.userWorkout, shallowEqual);
-    const UI = useSelector(state => state.UI, shallowEqual);
-
     const reg = /^\+?[0-9]\d*$/
 
     const handleRepsChange = (e) => {
@@ -71,7 +63,6 @@ const AddSets = ({ classes, workoutId }) => {
         setReps('');
         setWeight('');
     }
-    console.log(reps)
     return (
 
         <Grid item sm={12}>

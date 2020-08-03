@@ -42,18 +42,31 @@ const WorkoutView = ({ classes, day, setDay }) => {
     const userWorkouts = useSelector(state => state.data.userWorkouts, shallowEqual)
     const loading = useSelector(state => state.data.loading, shallowEqual)
 
-    const dispatch = useDispatch();
+    const [startDay, setStartDay] = useState(day.startOf('d'))
+    const [endDay, setEndDay] = useState(day.endOf('d'))
+
+
 
     const handleLeft = () => {
         setDay(day.subtract(1, 'd'));
+        setStartDay(startDay.subtract(1, 'd'))
+        setEndDay(endDay.subtract(1, 'd'))
     }
     const handleRight = () => {
         setDay(day.add(1, 'd'));
+        setStartDay(startDay.add(1, 'd'))
+        setEndDay(endDay.add(1, 'd'))
     }
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        dispatch(getUserWorkouts())
-    }, [])
+
+        dispatch(getUserWorkouts(startDay.valueOf(), endDay.valueOf()))
+
+
+    }, [day, startDay, endDay, dispatch])
+
     let recentWorkoutsMarkup = !loading ? (
         userWorkouts.map(workout => <Workout key={workout.workoutId} workout={workout} />)
     ) : (<UserWorkoutsSkeleton />)
@@ -85,7 +98,7 @@ const WorkoutView = ({ classes, day, setDay }) => {
 
                 </Grid>
                 <CardActions disableSpacing className={classes.cardActions}>
-                    {!loading ? <AddWorkout /> : <AddCircleIcon fontSize='large' color='disabled' />}
+                    {!loading ? <AddWorkout createdAt={day.valueOf()} /> : <AddCircleIcon fontSize='large' color='disabled' />}
                 </CardActions>
             </Card>
         </Container>

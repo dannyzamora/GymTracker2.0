@@ -28,17 +28,16 @@ const token = localStorage.FBIdToken;
 axios.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
-  
- if( error.response.status===403){
-   store.dispatch(logoutUser())
- }
+
+  if (error.response.status === 403) {
+    store.dispatch(logoutUser())
+  }
   return Promise.reject(error);
 });
 
 
 if (token) {
   const decodedToken = jwtDecode(token)
-  console.log("TOKEN",decodedToken)
   if (decodedToken.exp * 1000 < Date.now()) {
     store.dispatch(logoutUser())
     window.location.href = '/login';

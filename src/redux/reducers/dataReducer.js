@@ -51,9 +51,20 @@ export default function (state = initialState, action) {
                 ...state,
                 userWorkout: {
                     ...state.userWorkout,
-                    sets: [action.payload, ...state.userWorkout.sets]
+                    sets: [...state.userWorkout.sets, action.payload]
                 }
             }
+
+        case DELETE_USER_WORKOUT:
+            let i = state.userWorkouts.findIndex(
+                (userWorkout) => userWorkout.workoutId === action.payload
+            );
+
+            return {
+                ...state,
+                userWorkouts: [...state.userWorkouts.slice(0, i), ...state.userWorkouts.slice(i + 1)]
+
+            };
         case POST_USER_WORKOUT:
             return {
                 ...state,
