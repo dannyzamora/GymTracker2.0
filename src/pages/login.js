@@ -23,7 +23,6 @@ const styles = (theme) => ({
 const Login = ({ classes, history }) => {
 
     const dispatch = useDispatch()
-    const user = useSelector(state => state.user, shallowEqual);
     const UI = useSelector(state => state.UI, shallowEqual);
 
     const { loading } = UI;
@@ -40,9 +39,9 @@ const Login = ({ classes, history }) => {
     }, [UI.errors])
 
     useEffect(() => {
-      
-        dispatch( {type:'CLEAR_ERRORS'} )
-        
+
+        dispatch({ type: 'CLEAR_ERRORS' })
+
     }, [])
 
     const handleSubmit = (event) => {

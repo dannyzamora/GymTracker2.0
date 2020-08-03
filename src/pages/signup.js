@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import withStyles from "@material-ui/core/styles/withStyles"
 import PropTypes from 'prop-types'
 import AppIcon from '../images/fitness.png'
-import axios from 'axios'
 
 import Grid from '@material-ui/core/Grid'
 import Typography from "@material-ui/core/Typography"
@@ -25,7 +24,6 @@ const styles = (theme) => ({
 const Signup = ({ classes, history }) => {
     const dispatch = useDispatch()
 
-    const user = useSelector(state => state.user, shallowEqual);
     const UI = useSelector(state => state.UI, shallowEqual);
 
     const { loading } = UI;
@@ -43,9 +41,9 @@ const Signup = ({ classes, history }) => {
     }, [UI.errors])
 
     useEffect(() => {
-      
-        dispatch( {type:'CLEAR_ERRORS'} )
-        
+
+        dispatch({ type: 'CLEAR_ERRORS' })
+
     }, [])
 
     const handleSubmit = (event) => {
